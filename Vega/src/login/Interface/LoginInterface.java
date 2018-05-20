@@ -7,6 +7,7 @@ package login.Interface;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.sql.Timestamp;
 
 /**
  *
@@ -15,4 +16,6 @@ import java.rmi.RemoteException;
 
 public interface LoginInterface extends Remote {
     public boolean validateLogin(String user, String pass) throws RemoteException;
+    
+    public void timeIn (String user, Timestamp time_in) throws RemoteException;
 }

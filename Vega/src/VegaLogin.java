@@ -1,6 +1,8 @@
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.sql.Timestamp;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 import login.Interface.LoginInterface;
 
@@ -139,16 +141,25 @@ public class VegaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_usernameTextFieldActionPerformed
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
+        Calendar calendar = Calendar.getInstance();
+        Timestamp time_in = new java.sql.Timestamp(calendar.getTime().getTime());
+        
         try {
             Registry registry = LocateRegistry.getRegistry("127.0.0.1", 1055);
             LoginInterface li = (LoginInterface) registry.lookup("login");
             if (li.validateLogin(usernameTextField.getText(), passwordTextField.getText())) {
+                li.timeIn(usernameTextField.getText(), time_in);
+                
                 JOptionPane.showMessageDialog(null, "Logged In Successfully");
+                usernameTextField.setText("");
+                passwordTextField.setText("");
             } else {
                 JOptionPane.showMessageDialog(this, "Wrong Credentials", "Error", JOptionPane.ERROR_MESSAGE);
+                usernameTextField.setText("");
+                passwordTextField.setText("");
             }
         } catch (Exception err) {
-            err.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Registry not found.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_loginButtonActionPerformed
 
