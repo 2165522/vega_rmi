@@ -18,4 +18,6 @@ public interface LoginInterface extends Remote {
     public boolean validateLogin(String user, String pass) throws RemoteException;
     
     public void timeIn (String user, Timestamp time_in) throws RemoteException;
+    
+    public void timeOut (String user, Timestamp time_out) throws RemoteException;
 }

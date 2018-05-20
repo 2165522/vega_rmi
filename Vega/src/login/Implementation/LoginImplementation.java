@@ -12,6 +12,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import login.Interface.LoginInterface;
 
@@ -61,10 +62,38 @@ public class LoginImplementation extends UnicastRemoteObject implements LoginInt
             String query = "INSERT INTO tenants_log(tenant, time_in) VALUES (?,?)";
 
             ps = con.prepareStatement(query);
-            
+
             ps.setString(1, user);
             ps.setTimestamp(2, time_in);
             ps.executeUpdate();
+
+            con.close();
+        } catch (SQLException err) {
+            err.printStackTrace();
+            System.out.println("Database Connection Failed.");
+        }
+    }
+
+    public void timeOut(String user, Timestamp time_out) throws RemoteException {
+        Connection con;
+        PreparedStatement ps;
+        Statement stmt;
+        ResultSet rs;
+        try {
+            String conStr = "jdbc:mysql://localhost:3306/vegadb?user=root&password=";
+            con = DriverManager.getConnection(conStr);
+            stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
+            String query = "select * from tenants_log where time_out is null "
+                    + "AND tenant = " + user + " limit 1";
+
+            rs = stmt.executeQuery(query);
+            rs.beforeFirst();
+            rs.first();
+            rs.updateTimestamp("time_out", time_out);
+            rs.updateRow();
+
+            con.close();
 
         } catch (SQLException err) {
             err.printStackTrace();

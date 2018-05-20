@@ -18,12 +18,12 @@ public class LoginServant {
 
     public static void main(String[] args) {
         try {
-            Registry registry = LocateRegistry.createRegistry(1055);
+            Registry registry = LocateRegistry.createRegistry(1050);
             LoginImplementation login = new LoginImplementation();
             registry.rebind("login", login);
             System.out.println("Server is ready");
         } catch (RemoteException re) {
-            System.out.println("Server not found.");
+            System.out.println("Server is already Running");
         }
     }
 }

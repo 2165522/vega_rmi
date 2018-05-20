@@ -41,6 +41,7 @@ public class VegaLogin extends javax.swing.JFrame {
         passwordLabel = new javax.swing.JLabel();
         passwordTextField = new javax.swing.JPasswordField();
         loginButton = new javax.swing.JButton();
+        logoutButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -73,19 +74,29 @@ public class VegaLogin extends javax.swing.JFrame {
             }
         });
 
+        logoutButton.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
+        logoutButton.setText("Logout");
+        logoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(81, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(loginButton)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(usernameLabel)
-                        .addComponent(usernameTextField)
-                        .addComponent(passwordLabel)
-                        .addComponent(passwordTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(usernameLabel)
+                    .addComponent(usernameTextField)
+                    .addComponent(passwordLabel)
+                    .addComponent(passwordTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(loginButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(logoutButton)))
                 .addGap(74, 74, 74))
         );
         jPanel1Layout.setVerticalGroup(
@@ -100,8 +111,13 @@ public class VegaLogin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(passwordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(loginButton)
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(logoutButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(144, 144, 144))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(loginButton)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -127,7 +143,7 @@ public class VegaLogin extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49))
@@ -143,13 +159,13 @@ public class VegaLogin extends javax.swing.JFrame {
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         Calendar calendar = Calendar.getInstance();
         Timestamp time_in = new java.sql.Timestamp(calendar.getTime().getTime());
-        
+
         try {
-            Registry registry = LocateRegistry.getRegistry("127.0.0.1", 1055);
+            Registry registry = LocateRegistry.getRegistry("127.0.0.1", 1050);
             LoginInterface li = (LoginInterface) registry.lookup("login");
             if (li.validateLogin(usernameTextField.getText(), passwordTextField.getText())) {
                 li.timeIn(usernameTextField.getText(), time_in);
-                
+
                 JOptionPane.showMessageDialog(null, "Logged In Successfully");
                 usernameTextField.setText("");
                 passwordTextField.setText("");
@@ -162,6 +178,29 @@ public class VegaLogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Registry not found.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_loginButtonActionPerformed
+
+    private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
+        Calendar calendar = Calendar.getInstance();
+        Timestamp time_out = new java.sql.Timestamp(calendar.getTime().getTime());
+
+        try {
+            Registry registry = LocateRegistry.getRegistry("127.0.0.1", 1050);
+            LoginInterface li = (LoginInterface) registry.lookup("login");
+            if (li.validateLogin(usernameTextField.getText(), passwordTextField.getText())) {
+                li.timeOut(usernameTextField.getText(), time_out);
+
+                JOptionPane.showMessageDialog(null, "Logged Out Successfully");
+                usernameTextField.setText("");
+                passwordTextField.setText("");
+            } else {
+                JOptionPane.showMessageDialog(this, "Wrong Credentials", "Error", JOptionPane.ERROR_MESSAGE);
+                usernameTextField.setText("");
+                passwordTextField.setText("");
+            }
+        } catch (Exception err) {
+            JOptionPane.showMessageDialog(this, "Registry not found.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_logoutButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -203,6 +242,7 @@ public class VegaLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton loginButton;
+    private javax.swing.JButton logoutButton;
     private javax.swing.JLabel passwordLabel;
     private javax.swing.JPasswordField passwordTextField;
     private javax.swing.JLabel usernameLabel;

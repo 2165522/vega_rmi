@@ -39,7 +39,7 @@ CREATE TABLE `tenants` (
 
 LOCK TABLES `tenants` WRITE;
 /*!40000 ALTER TABLE `tenants` DISABLE KEYS */;
-INSERT INTO `tenants` VALUES ('2165522','Earl','Rimando','2165522');
+INSERT INTO `tenants` VALUES ('11111','Ray Oliber','Servidad','11111'),('11112','Ron','Quitoriano','11112'),('11113','Ervin','Fernandez','11113'),('2165522','Earl','Rimando','2165522');
 /*!40000 ALTER TABLE `tenants` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -56,7 +56,7 @@ CREATE TABLE `tenants_log` (
   `time_in` timestamp NULL DEFAULT NULL,
   `time_out` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`log_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,7 +65,7 @@ CREATE TABLE `tenants_log` (
 
 LOCK TABLES `tenants_log` WRITE;
 /*!40000 ALTER TABLE `tenants_log` DISABLE KEYS */;
-INSERT INTO `tenants_log` VALUES (1,'2165522','2018-05-20 17:02:25',NULL);
+INSERT INTO `tenants_log` VALUES (1,'2165522','2018-05-20 17:02:25','2018-05-20 18:08:06');
 /*!40000 ALTER TABLE `tenants_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -82,4 +82,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-21  1:05:05
+-- Dump completed on 2018-05-21  2:13:41
