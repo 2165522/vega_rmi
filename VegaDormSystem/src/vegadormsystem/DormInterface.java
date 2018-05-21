@@ -42,6 +42,10 @@ public interface DormInterface extends Remote {
     public int getCapacity() throws RemoteException;
 
     public String getCurrentCapacity() throws RemoteException;
+
+    public void checkIn() throws RemoteException;
+
+    public void checkOut() throws RemoteException;
 //
 //    public String listOfTenants() throws RemoteException;
 //

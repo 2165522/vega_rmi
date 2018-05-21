@@ -72,4 +72,12 @@ public class DormImplementation extends UnicastRemoteObject implements DormInter
     public String getNotif() throws RemoteException {
         return notif;
     }
+    
+    public void checkIn() throws RemoteException {
+        this.capacity++;
+    }
+    
+    public void checkOut() throws RemoteException {
+        this.capacity--;
+    }
 }

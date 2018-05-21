@@ -23,12 +23,13 @@ public class Tenant {
             DormInterface stub = (DormInterface) registry.lookup("dorm");
 
             do {
+                System.out.println("\nBoarding House: "+stub.getDormName()+"\nCurrent Capacity: "+stub.getCurrentCapacity());
                 System.out.println("=========================================");
                 System.out.println("======== What do you want to do? ========");
                 System.out.println("=========================================");
-                System.out.println("1.\tChange the name of boarding house.");
-                System.out.println("2.\tUpdate the current capacity of boarding house.");
-                System.out.println("3.\tSet an announcement.");
+                System.out.println("1.\tCheck in.");
+                System.out.println("2.\tCheck out.");
+                System.out.println("3.\tReload console.");
                 System.out.println("4.\tExit application.");
 
                 System.out.print("\nEnter choice: ");
@@ -36,23 +37,16 @@ public class Tenant {
 
                 switch (choice) {
                     case 1:
-                        System.out.print("Current name: " + stub.getDormName() + "\n");
-                        System.out.print("Enter your desired boarding house name: ");
-                        String dName = kb.next();
-                        stub.setDormName(dName);
+                        stub.checkIn();
+                        System.out.println("Checked in successfully");
                         repeat = true;
                         break;
                     case 2:
-                        System.out.print("Current capacity: " + stub.getCapacity() + "\n");
-                        System.out.print("Enter capacity: ");
-                        int cap = kb.nextInt();
-                        stub.setCapacity(cap);
+                        stub.checkOut();
+                        System.out.println("Checked out successfully");
                         repeat = true;
                         break;
                     case 3:
-                        System.out.print("Enter your announcement:");
-                        String notif = kb.next();
-                        stub.setNotif(notif);
                         repeat = true;
                         break;
                     case 4:

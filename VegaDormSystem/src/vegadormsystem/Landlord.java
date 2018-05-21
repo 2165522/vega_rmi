@@ -47,8 +47,8 @@ public class Landlord {
                 System.out.println("=========================================");
                 System.out.println("1.\tChange the name of boarding house.");
                 System.out.println("2.\tSet the maximum capacity of the house.");
-                System.out.println("3.\tChange the capacity of boarding house.");
-                System.out.println("4.\tSet an announcement.");
+                System.out.println("3.\tSet an announcement.");
+                System.out.println("4.\tReload console.");
                 System.out.println("5.\tExit application.");
 
                 System.out.print("\nEnter choice: ");
@@ -70,16 +70,12 @@ public class Landlord {
                         repeat = true;
                         break;
                     case 3:
-                        System.out.print("Current capacity: "+stub.getCurrentCapacity()+"\n");
-                        System.out.print("Add tenant load: ");
-                        int addNum = kb.nextInt();
-                        stub.setCurrentCapacity(stub.getCapacity(), addNum);
-                        repeat = true;
-                        break;
-                    case 4:
                         System.out.print("Enter your announcement:");
                         String notif = kb.next();
                         stub.setNotif(notif);
+                        repeat = true;
+                        break;
+                    case 4:
                         repeat = true;
                         break;
                     case 5:
