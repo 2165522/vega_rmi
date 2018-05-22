@@ -23,7 +23,7 @@ public class Tenant {
             DormInterface stub = (DormInterface) registry.lookup("dorm");
 
             do {
-                System.out.println("\nBoarding House: "+stub.getDormName()+"\nCurrent Capacity: "+stub.getCurrentCapacity());
+                System.out.println("\nBoarding House: "+stub.getDormName()+"\nCurrent Capacity: "+stub.getCurrentCapacity()+"\n\nAnnouncement!: "+stub.getNotif());
                 System.out.println("=========================================");
                 System.out.println("======== What do you want to do? ========");
                 System.out.println("=========================================");

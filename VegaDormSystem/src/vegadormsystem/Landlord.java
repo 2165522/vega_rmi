@@ -52,7 +52,7 @@ public class Landlord {
                 System.out.println("5.\tExit application.");
 
                 System.out.print("\nEnter choice: ");
-                byte choice = kb.nextByte();
+                byte choice = Byte.parseByte(kb.nextLine());
 
                 switch (choice) {
                     case 1:
@@ -65,13 +65,13 @@ public class Landlord {
                     case 2:
                         System.out.println("Current maximum capacity: "+stub.getMaxCap());
                         System.out.print("Set new maximum capacity: ");
-                        int max = kb.nextInt();
+                        int max = Integer.parseInt(kb.nextLine());
                         stub.setMaxCap(max);
                         repeat = true;
                         break;
                     case 3:
                         System.out.print("Enter your announcement:");
-                        String notif = kb.next();
+                        String notif = kb.nextLine();
                         stub.setNotif(notif);
                         repeat = true;
                         break;

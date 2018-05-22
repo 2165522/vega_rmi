@@ -1,37 +1,55 @@
-import java.rmi.server.UnicastRemoteObject;
-import java.rmi.registry.Registry;
-import java.rmi.registry.LocateRegistry;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 
-public class DormServer implements DormInterface {
-	public String createDormName (String dormName) {
-		return;
-	}
-	public int inputCapacity (String capacity) {
-		return;
-	}
-	public String setNotif (String notif) {
-		return;
-	}
-	public String register(String fname, String lname, String username, String password){
-		return;
-	}
-	public String login (String username, String password) {
-		return;
-	}
-	public String getNotif() {
-		return;
-	}
-	public String getDormName() {
-		return;
-	}
-	public int getCapacity() {
-		return;
-	}
-	public String listOfTenants() {
-		return;
-	}
-	public String getCurrentNumberOfTenants() {
-		return;
-	}
+
+/**
+ *
+ * @author Earl
+ */
+public class DormServer {
+    public static void main (String[]args) {
+        try {
+            Registry registry = LocateRegistry.createRegistry(1050);
+            DormImplementation dorm = new DormImplementation();
+            registry.rebind("dorm", dorm);
+            System.out.println("Server is ready");
+        } catch (RemoteException re) {
+            System.out.println("Server is already Running");
+        }
+    }
+    
+
+//    public String register(String fname, String lname, String username, String password) {
+//        return;
+//    }
+//
+//    public String login(String username, String password) {
+//        return;
+//    }
+//
+//    public String getNotif() {
+//        return notif;
+//    }
+//
+//    public String getDormName() {
+//        return dormName;
+//    }
+//
+//    public int getCapacity() {
+//        return capacity;
+//    }
+//
+//    public String listOfTenants() {
+//        return;
+//    }
+//
+//    public String getCurrentNumberOfTenants() {
+//        return;
+//    }
 }
